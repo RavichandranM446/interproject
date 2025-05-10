@@ -2,6 +2,11 @@
 document.querySelector('.login-btn').addEventListener('click', () => {
     console.log('Log in button clicked');
 });
+  
+  function toggleMenu() {
+    const menu = document.querySelector('.mobile-menu');
+    menu.classList.toggle('active');
+  }
 
 document.querySelector('.signup-btn').addEventListener('click', () => {
     console.log('Sign up button clicked');
@@ -140,3 +145,4 @@ fetch('https://university.cappriciosec.com/university.json')
     });
   })
   .catch(error => console.error('Error loading courses.json:', error));
+
