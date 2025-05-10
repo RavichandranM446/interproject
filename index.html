@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Udemy Header</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
-    <header class="header">
+<header class="header">
     <div class="logo">Cappriciosec University</div>  
     <nav class="nav">
         <div class="search-bar">
@@ -20,6 +21,18 @@
         <button class="signup-btn">Sign up</button>
         <a href="#" class="nav-link globe">🌐</a>
     </nav>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+    <div class="mobile-menu">
+        <div class="search-bar">
+            <span class="search-icon">🔍</span>
+            <input type="text" placeholder="Find expert-led courses to boost your career" />
+        </div>
+        <a href="#" class="nav-link">Install</a>
+        <button class="login-btn">Log in</button>
+        <button class="signup-btn">Sign up</button>
+        <a href="#" class="nav-link globe">🌐</a>
+    </div>
 </header>
     <div id="courses-container"></div>
         <div class="container">
@@ -30,7 +43,6 @@
                     <div class="slide-content">
                         <h2 class="slide-title"></h2>
                         <p class="slide-subtitle"></p>
-                        <a href="#explore" class="slide-cta"></a>
                     </div>
                 </div>
                 <div class="carousel-slide">
@@ -38,7 +50,7 @@
                     <div class="slide-content">
                         <h2 class="slide-title"></h2>
                         <p class="slide-subtitle"></p>
-                        <a href="#start" class="slide-cta"></a>
+                        
                     </div>
                 </div>
                 <div class="carousel-slide">
@@ -46,7 +58,7 @@
                     <div class="slide-content">
                         <h2 class="slide-title"></h2>
                         <p class="slide-subtitle"></p>
-                        <a href="#join" class="slide-cta"></a>
+                        <!-- <a href="#join" class="slide-cta"></a> -->
                     </div>
                 </div>
             </div>
@@ -59,7 +71,8 @@
                 <svg xmlns="https://university.cappriciosec.com/college_images/28.webp" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </button>
             
-            <div class="carousel-indicators"></div>
+            <div class="carousel-indicators">
+            </div>
         </div>
     </div>
      <section class="accreditation-section">
@@ -97,7 +110,30 @@
         </div>
     </div>
 </section>
+<section class="features">
+    <h2>Why Learn With Us?</h2>
+    <ul>
+     <li data-aos="zoom-in">Specialized FDP</li>
+      <li data-aos="zoom-in">Curriculam Support and Development</li>
+      <li data-aos="zoom-in"></i>MOU for mutual growth in Steam area </li>
+      <li data-aos="zoom-in">Seminar</li>
+      <li data-aos="zoom-in"></i>Hands on Workshops </li>
+      <li data-aos="zoom-in">Technical Event Management and Hosting Support</li>
+    </ul>
+  </section>
 
-    <script src="script.js"></script>
+<footer class="dynamic-footer">
+  <div class="footer-content">
+    <div class="social-icons">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+    <p>© 2025 Cappriciosec University. All rights reserved.</p>
+  </div>
+</footer>
+
+    <script src="script.js"></script> 
 </body>
 </html>
