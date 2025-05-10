@@ -1,24 +1,22 @@
-/* Basic Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Header Styles */
+/* Default styles for desktop */
 .header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #f8f8f8;
+    align-items: center; /* Vertically center logo and hamburger */
+    padding: 10px 20px;
+    background: #fff;
     border-bottom: 1px solid #ddd;
+    position: relative;
+    height: 60px; /* Fixed height for consistency */
+    box-sizing: border-box;
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: 24px;
     font-weight: bold;
-    color: #132028; /* Text color */
+    line-height: 1;
+    display: flex;
+    align-items: center;
 }
 
 .nav {
@@ -30,52 +28,150 @@
 .search-bar {
     display: flex;
     align-items: center;
-    border: 1px solid #ddd;
-    padding: 5px 10px;
+    border: 1px solid #ccc;
+    padding: 5px;
     border-radius: 5px;
-    color: #132028; /* Text color */
 }
 
 .search-icon {
-    margin-right: 10px;
-    color: #132028;
+    margin-right: 5px;
 }
 
-.search-bar input {
-    border: none;
-    outline: none;
-    padding: 5px;
-    color: #132028;
-    background-color: transparent;
-}
-
-.nav-link {
+.nav-link, .login-btn, .signup-btn {
     text-decoration: none;
-    color: #132028; /* Text color */
-    font-size: 1rem;
-}
-
-.cart, .globe {
-    font-size: 1.2rem;
-    color: #132028;
+    color: #333;
+    font-size: 16px;
 }
 
 .login-btn, .signup-btn {
-    padding: 10px 20px;
+    padding: 8px 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #8dfba1; /* Button color */
-    color: #132028; /* Text on button */
-    font-weight: bold;
 }
 
+.signup-btn {
+    background: #007bff;
+    color: #fff;
+}
+
+ /* Add margin to push the icon away from the bottom border */
+.hamburger {
+    display: none; /* default hidden on desktop */
+    font-size: 28px;
+    cursor: pointer;
+    padding: 8px 12px;
+    margin-right: 10px;  /* Space from right edge */
+    margin-left: auto;   /* Push it to the right */
+    margin-top: -50px;     /* Space from top */
+    margin-bottom: 5px;  /* Space from bottom border */
+    color: #132028;
+    background-color: transparent;
+    border: none;
+}
+@media (max-width: 768px) {
+    .hamburger {
+        display: block; /* Show hamburger on mobile */
+    }
+
+    .nav {
+        display: none;
+    }
+}
+
+
+.hamburger:hover {
+    background-color: #f0f0f0;
+}
+
+
+
+.mobile-menu {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: #fff;
+    width: 100%;
+    max-width: 300px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    flex-direction: column;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.mobile-menu .search-bar,
+.mobile-menu .nav-link,
+.mobile-menu .login-btn,
+.mobile-menu .signup-btn {
+    width: 100%;
+    text-align: left;
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+    .nav {
+        display: none; /* Hide desktop nav */
+    }
+
+    .hamburger {
+        display: flex; /* Show hamburger icon in mobile view */
+    }
+
+    .mobile-menu.active {
+        display: flex; /* Show mobile menu when active */
+    }
+
+    .cart {
+        display: block; /* Keep cart visible in mobile view */
+    }
+}
+
+/* Ensure image slider has lower z-index */
+.image-slider {
+    z-index: 1;
+}
 .login-btn {
     /* Optional: Add margin if needed */
 }
 
 .signup-btn {
     /* Optional: Add margin if needed */
+}
+ .features, .trust-section {
+      padding: 2rem;
+    }
+
+    .features h2, .trust-section h2 {
+      color: #132028;
+      margin-bottom: 1rem;
+    }
+.features ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+}
+.features li {
+  background-color: #f8f8f8;
+  border-radius: 20px;
+  padding: 1rem;
+  color: #132028;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+    .features ul, .trust-section ul {
+      list-style-type: square;
+      padding-left: 1.5rem;
+    }
+    .features li {
+  border: 2px solid #8dfba1;
+  background: #f8f8f8
 }
 
 /* Responsive Mobile Styles */
@@ -215,7 +311,7 @@ h1 {
 /* Call to action button */
 .slide-cta {
     display: inline-block;
-    background-color: #10b981;
+    background-color: #5f10b9;
     color: white;
     font-weight: 600;
     padding: 0.75rem 1.5rem;
@@ -228,7 +324,7 @@ h1 {
 }
 
 .slide-cta:hover {
-    background-color: #059669;
+    background-color: #1b0596;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
@@ -332,6 +428,68 @@ h1 {
         height: 32px;
     }
 }
+
+.dynamic-footer {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  padding: 15px 30px;
+  border-radius: 50px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  animation: floatUp 0.6s ease-out;
+  max-width: 90%;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.dynamic-footer:hover {
+  transform: translateX(-50%) translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-content p {
+  margin: 0;
+  font-size: 14px;
+  color: #132028;
+  font-weight: 500;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icons a {
+  color: #132028;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #8dfba1;
+}
+
+@keyframes floatUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
 .spacer {
             height: 100vh;
             display: flex;
