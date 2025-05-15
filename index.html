@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Udemy Dashboard with Search</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<style>
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+body.light {
+      background: #fff;
+      color: #333;
+    }
+
+    body.dark {
+      background: #1a1a1a;
+      color: #fff;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      transition: background-color 0.3s;
+      z-index: 1000;
+    }
+    .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+    .navbar.dark {
+      background: #2c2c2c;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #6a5af9;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .logo:hover {
+      color: #4837c4;
+    }
+
+  .search-bar {
+  flex: 1;
+  margin-left: auto;
+  max-width: 500px;
+}
+
+    .search-bar input {
+      width: 80%;
+      padding: 0.5rem 1rem 0.5rem 2.5rem;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+      margin-left: 35;
+    }
+
+    .search-bar input:focus {
+      border-color: #6a5af9;
+    }
+
+    .search-bar i {
+      position: absolute;
+      left: 18.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+    }
+
+    .nav-items {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .nav-items a {
+      text-decoration: none;
+      color: inherit;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-items a:hover {
+      color: #6a5af9;
+    }
+
+    .nav-items .cart {
+      position: relative;
+    }
+
+    .nav-items .cart .badge {
+      position: absolute;
+      top: -5px;
+      right: -10px;
+      background: #6a5af9;
+      color: #fff;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 0.75rem;
+    }
+
+    .nav-items .btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-items .btn-login {
+      background: #fff;
+      border: 1px solid #333;
+      color: #333;
+    }
+
+    .nav-items .btn-login:hover {
+      background: #f5f5f5;
+    }
+
+    .nav-items .btn-signup {
+      background: #333;
+      color: #fff;
+    }
+
+    .nav-items .btn-signup:hover {
+      background: #555;
+    }
+
+    .nav-items .btn-google-play {
+      background: #fff;
+      border: 1px solid #333;
+      color: #333;
+    }
+
+    .nav-items .btn-google-play:hover {
+      background: #f5f5f5;
+    }
+
+    .nav-items .btn-google-play img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: inherit;
+    }
+
+    .slide-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 250px;
+      height: 100%;
+      background: #fff;
+      box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+      transition: right 0.3s ease-in-out;
+      z-index: 1000;
+    }
+
+    .slide-menu.dark {
+      background: #2c2c2c;
+    }
+
+    .slide-menu.active {
+      right: 0;
+    }
+
+    .slide-menu .close-btn {
+      font-size: 1.5rem;
+      cursor: pointer;
+      text-align: right;
+      margin-bottom: 1rem;
+      color: inherit;
+    }
+
+    .slide-menu a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      text-decoration: none;
+      color: inherit;
+      font-size: 1rem;
+      border-bottom: 1px solid #eee;
+      transition: background-color 0.3s;
+    }
+
+    .slide-menu a:hover {
+      background: #f5f5f5;
+    }
+
+    .slide-menu.dark a:hover {
+      background: #3a3a3a;
+    }
+
+    /* Search Results Dropdown */
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 0 0 10px 10px;
+      max-height: 400px;
+      overflow-y: auto;
+      z-index: 999;
+      display: none;
+    }
+
+    .search-results.active {
+      display: block;
+    }
+
+    .search-result-card {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      border-bottom: 1px solid #eee;
+      font-family: 'Quicksand', sans-serif;
+      transition: background 0.3s;
+    }
+
+    .search-result-card:hover {
+      background: #f5f5f5;
+    }
+
+    .search-result-card img {
+      width: 80px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-right: 1rem;
+    }
+
+    .search-result-content {
+      flex: 1;
+    }
+
+    .search-result-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #000;
+    }
+
+    .search-result-desc {
+      font-size: 0.9rem;
+      color: #333;
+      margin: 0.2rem 0;
+    }
+
+    .highlight {
+      background: #ffeb3b;
+      font-weight: 600;
+    }
+
+    .search-result-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .search-result-buttons .btn {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    .search-result-buttons .btn-enroll {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .search-result-buttons .btn-enroll:hover {
+      background-color: #0056b3;
+    }
+
+    .search-result-buttons .btn-details {
+      background-color: #e0e0e0;
+      color: #000;
+    }
+
+    .search-result-buttons .btn-details:hover {
+      background-color: #cfcfcf;
+    }
+
+    /* Slide Info Panel */
+    .course-slide {
+      position: fixed;
+      bottom: -100%;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+      padding: 1.5rem;
+      transition: bottom 0.3s ease-in-out;
+      z-index: 1000;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .course-slide.active {
+      bottom: 0;
+    }
+
+    .course-slide h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .course-slide p {
+      font-size: 1rem;
+      color: #444;
+    }
+
+    .close-slide {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .close-slide:hover {
+      color: #f00;
+    }
+
+    /* Image Slider Styles */
+    .slider-container {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      margin: 1rem auto;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+      min-width: 100%;
+      position: relative;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 0.5rem;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+
+    .slider-arrow:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .arrow-left {
+      left: 10px;
+    }
+
+    .arrow-right {
+      right: 10px;
+    }
+ /*  brand section */
+ .brand-section {
+      padding: 40px 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .brand-section h2 {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: hwb(0 0% 100%);
+    }
+
+    .brand-slider {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .brand-track {
+      display: flex;
+      width: max-content;
+      animation: scroll 30s linear infinite;
+    }
+
+    .brand-track img {
+      height: 60px;
+      margin: 0 40px;
+      object-fit: contain;
+      /* filter: grayscale(100%); */
+      opacity: 0.8;
+      transition: all 0.3s ease;
+    }
+
+    .brand-track img:hover {
+      transform: scale(1.1);
+      /* filter: grayscale(0%); */
+      opacity: 1;
+    }
+
+    @keyframes scroll {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+    /* Course Categories */
+        .cyber-courses-section {
+      font-family: 'Quicksand', sans-serif;
+      padding: 2rem;
+      background: #f5f5f5;
+      overflow-x: hidden;
+    }
+
+    .cyber-courses-title {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #000;
+      margin-bottom: 1rem;
+    }
+
+    .course-scroll-container {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding-bottom: 1rem;
+      flex-wrap: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .course-card {
+      min-width: 270px;
+      flex: 0 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .course-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .course-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+
+    .course-content {
+      padding: 1rem;
+    }
+
+    .course-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #000;
+    }
+
+    .course-desc {
+      font-size: 0.9rem;
+      margin: 0.5rem 0;
+      color: #333;
+    }
+
+    .course-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+    }
+
+    .btn {
+      font-family: 'Quicksand', sans-serif;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .btn-enroll {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .btn-enroll:hover {
+      background-color: #0056b3;
+    }
+
+    .btn-details {
+      background-color: #e0e0e0;
+      color: #000;
+    }
+
+    .btn-details:hover {
+      background-color: #cfcfcf;
+    }
+
+    .course-slide {
+      position: fixed;
+      bottom: -100%;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+      padding: 1.5rem;
+      transition: bottom 0.3s ease-in-out;
+      z-index: 1000;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .course-slide.active {
+      bottom: 0;
+    }
+
+    .course-slide h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .course-slide p {
+      font-size: 1rem;
+      color: #444;
+    }
+
+    .close-slide {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .close-slide:hover {
+      color: #f00;
+    }
+    
+    /*  card container */
+    .featured-courses-horizontal {
+  padding: 2rem 1rem;
+  background: #f4f4f4;
+  text-align: center;
+}
+
+.featured-courses-horizontal h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #222;
+}
+
+.horizontal-courses {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+}
+
+.horizontal-courses::-webkit-scrollbar {
+  height: 8px;
+}
+
+.horizontal-courses::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 10px;
+}
+
+.course-card {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  background: #fff;
+  width: 280px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+.course-card:hover {
+  transform: scale(1.02);
+}
+
+.course-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.course-card h3 {
+  font-size: 1rem;
+  margin: 0.8rem 1rem 0.5rem;
+  color: #333;
+  text-align: left;
+}
+
+.course-card button {
+  margin: 0 1rem 1rem;
+  padding: 10px;
+  background-color: #0066ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.course-card button:hover {
+  background-color: #004bb3;
+}
+
+
+.section {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #333;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #fff;
+  border-radius: 15px;
+  padding: 25px 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.card-description {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.card-tag {
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  background-color: #10b981;
+  color: white;
+  border-radius: 20px;
+}
+  /*  trusted companies */
+.company-logos-section {
+  padding: 2rem;
+  background: #f8f9fa;
+  overflow: hidden;
+}
+
+.logos-heading {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.logos-container {
+  display: flex;
+  gap: 2rem;
+  animation: scroll 20s linear infinite;
+  will-change: transform;
+}
+
+.logos-container img {
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+.logos-container img:hover {
+  filter: grayscale(0%);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.footer-section {
+  background: #1f1f1f;
+  color: #fff;
+  padding: 2rem 1rem;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-column {
+  flex: 1 1 200px;
+  margin: 1rem;
+}
+
+.footer-title {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.footer-link {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer-link:hover {
+  color: #fff;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.social-icons a {
+  color: #ccc;
+  font-size: 1.2rem;
+  transition: 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #1e90ff;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.8rem;
+  color: #aaa;
+}
+.main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Dynamic island style for mobile */
+@media (max-width: 768px) {
+  .footer-container {
+    display: none;
+  }
+
+  .dynamic-footer {
+    display: flex;
+    justify-content: space-around;
+    background: #1f1f1f;
+    padding: 1rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  .dynamic-footer button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dynamic-footer button:hover {
+    color: #1e90ff;
+  }
+
+  .mobile-social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .mobile-social-icons a {
+    color: #ccc;
+  }
+
+  .footer-bottom {
+    padding-bottom: 4rem; /* prevent bottom content from being blocked */
+  }
+}
+/* Responsive */
+@media (max-width: 768px) {
+  .logos-container {
+    gap: 1.5rem;
+    animation-duration: 30s;
+  }
+
+  .logos-container img {
+    height: 30px;
+  }
+  .logo {
+    margin-bottom: 0.5rem;
+    order: 1;
+  }
+}
+ /* Trusted by Companies Section */
+
+    @media (max-width: 768px) {
+      .nav-items {
+        display: flex;
+        gap: 0.5rem;
+      }
+      .nav-items a:not(.btn-google-play) {
+        display: none;
+      }
+
+      .hamburger {
+        display: block;
+      }
+      
+      .search-bar {
+        margin: 0 1rem;
+      }
+
+      .navbar {
+        padding: 0.75rem 1rem;
+      }
+      .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .btn-google-play {
+    order: 2;
+    margin-left: auto;
+    margin-bottom: 0.5rem;
+  }
+
+  .search-bar {
+    order: 3;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .nav-items {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+      .nav-items .btn-google-play {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.85rem;
+        margin: 0 0.5rem;
+      }
+
+      .hamburger {
+        margin-left: 0.5rem;
+      }
+
+      .search-results {
+        max-height: 300px;
+      }
+
+      .search-result-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .search-result-card img {
+        width: 100%;
+        height: 120px;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Responsive Slider */
+      .slider-container {
+        margin: 0.5rem;
+      }
+
+      .slide img {
+        height: 200px;
+      }
+
+      .slider-arrow {
+        font-size: 1.5rem;
+        padding: 0.3rem;
+      }
+    }
+</style>
+</head>
+<body class="light">
+  <nav class="navbar">
+    <a href="/" class="logo" id="siteLogo"></a>
+
+    <div class="search-bar">
+      <i class="fas fa-search"></i>
+      <input type="text" placeholder="Find your next course by skill" id="searchInput">
+      <div class="search-results" id="searchResults"></div>
+    </div>
+    <div class="nav-items" id="navItems">
+      <!-- Dynamically populated -->
+    </div>
+    <div class="hamburger" id="hamburger">
+      <i class="fas fa-bars"></i>
+    </div>
+    <div class="slide-menu" id="slideMenu">
+      <div class="close-btn" id="closeBtn">
+        <i class="fas fa-times"></i>
+      </div>
+      <!-- Dynamically populated -->
+    </div>
+    <div class="course-slide" id="courseSlide">
+      <button class="close-slide" onclick="closeSlide()">×</button>
+      <h3 id="slideTitle"></h3>
+      <p id="slideDetails"></p>
+    </div>
+  </nav>
+
+
+  <div class="main-container">
+
+  <!-- Image Slider -->
+  <div class="slider-container" id="sliderContainer">
+    <div class="slider" id="slider"></div>
+    <div class="slider-arrow arrow-left" onclick="prevSlide()">
+      <i class="fas fa-chevron-left"></i>
+    </div>
+    <div class="slider-arrow arrow-right" onclick="nextSlide()">
+      <i class="fas fa-chevron-right"></i>
+    </div>
+  </div>
+<!--brand section-->
+<section class="brand-section">
+    <h2>Institutions We've Trained<br>Our Academic Collaboration</h2>
+    <div class="brand-slider">
+      <div class="brand-track" id="brand-track">
+        <!-- Logos will be loaded here -->
+      </div>
+    </div>
+  </section>
+  <!-- Course Categories -->
+   <section class="cyber-courses-section">
+  <div class="cyber-courses-title">🔐 Explore Cybersecurity Courses</div>
+  <div class="course-scroll-container" id="cyberCourseContainer"></div>
+
+  <div class="course-slide" id="courseSlide">
+    <button class="close-slide" onclick="closeSlide()">×</button>
+    <h3 id="slideTitle"></h3>
+    <p id="slideDetails"></p>
+  </div>
+</section>
+
+<section class="featured-courses-horizontal">
+  <h2>🎯 Featured Cybersecurity Courses</h2>
+  <div class="horizontal-courses" id="horizontalCourses"></div>
+</section>
+
+<!-- card container -->
+<section class="section">
+    <h2 class="title animate__animated animate__fadeInDown">🔥 Learn by Doing</h2>
+    <div class="card-container" id="cardContainer"></div>
+  </section>
+  <!-- trusted by companies -->
+   <section class="company-logos-section">
+  <h2 class="logos-heading">🤝Trusted by Companies</h2>
+  <div class="logos-container" id="logos-container">
+    <!-- Logos will be dynamically inserted here -->
+  </div>
+</section>
+
+    <!-- Logos from JSON will be added here -->
+  </div>
+</section>
+<br>
+<footer id="footer" class="footer-section"></footer>
+</div> <!-- close main-container -->
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  const headerAssets = {
+    logo: {
+      src: "https://university.cappriciosec.com/university-logo.png",
+      link: "/",
+      alt: "Cappriciosec University"
+    },
+    // playstore: {
+    //   src: "https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg",
+    //   link: "https://play.google.com/store/apps/details?id=com.cappriciosec.university",
+    //   alt: "Get on Google Play"
+    // }
+  };
+
+  // Set logo
+  const siteLogo = document.getElementById("siteLogo");
+  if (siteLogo) {
+    siteLogo.innerHTML = `<img src="${headerAssets.logo.src}" alt="${headerAssets.logo.alt}" style="height: 40px;">`;
+    siteLogo.href = headerAssets.logo.link;
+  }
+
+  // Set playstore (mobile + desktop)
+  const navItems = document.getElementById("navItems");
+  if (navItems) {
+    const playBtn = document.createElement("a");
+    playBtn.href = headerAssets.playstore.link;
+    playBtn.className = "btn btn-google-play";
+    playBtn.innerHTML = `<img src="${headerAssets.playstore.src}" alt="${headerAssets.playstore.alt}" style="height: 20px;">`;
+    navItems.prepend(playBtn);
+  }
+});
+
+  const navData = [
+      {
+        label: "Categories",
+        link: "#categories",
+        icon: "fas fa-list"
+      },
+      // {
+      //   label: "Udemy Business",
+      //   link: "#business",
+      //   icon: "fas fa-briefcase"
+      // },
+      // {
+      //   label: "Teach on Udemy",
+      //   link: "#teach",
+      //   icon: "fas fa-chalkboard-teacher"
+      // },
+      // {
+      //   label: "Cart",
+      //   link: "#cart",
+      //   icon: "fas fa-shopping-cart",
+      //   badge: "0"
+      // },
+      {
+        label: "Get on Google Play",
+        link: "https://play.google.com/store/apps/details?id=com.cappriciosec.university",
+        icon: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Google_Play_2022_logo.svg" // Colored Google Play logo
+      },
+      {
+        label: "Login",
+        link: "#login",
+        icon: "fas fa-sign-in-alt",
+        mobileOnly: true
+      },
+      {
+        label: "Logout",
+        link: "#logout",
+        icon: "fas fa-sign-out-alt",
+        mobileOnly: true
+      },
+      {
+        label: "Profile",
+        link: "#profile",
+        icon: "fas fa-user",
+        mobileOnly: true
+      },
+      {
+        label: "Theme Toggle",
+        link: "#theme-toggle",
+        icon: "fas fa-moon",
+        mobileOnly: true,
+        action: "toggleTheme"
+      }
+    ];
+
+    const cyberCourses = [
+      {
+        title: "Ethical Hacking Essentials",
+        image: "https://img-c.udemycdn.com/course/240x135/1565838_e54e_12.jpg",
+        desc: "Learn white hat hacking and penetration testing basics.",
+        details: "This course will teach you how to perform ethical hacking and penetration testing in real-world scenarios, including password cracking, sniffing, and vulnerability assessment."
+      },
+      {
+        title: "Network Security Fundamentals",
+        image: "https://img-c.udemycdn.com/course/240x135/947098_02c6_3.jpg",
+        desc: "Understand secure network architectures and protocols.",
+        details: "Dive deep into network defense, firewalls, and secure communication protocols like SSL/TLS, with hands-on simulations."
+      },
+      {
+        title: "Web Application Security",
+        image: "https://img-c.udemycdn.com/course/240x135/2071088_45a1.jpg",
+        desc: "Secure web apps against XSS, CSRF, and SQLi attacks.",
+        details: "Learn how attackers exploit web vulnerabilities and how to implement security measures such as input validation, content security policies, and secure cookies."
+      },
+      {
+        title: "Cybersecurity for Beginners",
+        image: "https://img-c.udemycdn.com/course/240x135/1561458_7f3b.jpg",
+        desc: "Introductory guide to key cybersecurity concepts.",
+        details: "Get a broad understanding of cybersecurity concepts, types of threats, risk management, and career paths in this growing field."
+      },
+      {
+        title: "Advanced Malware Analysis",
+        image: "https://img-c.udemycdn.com/course/240x135/3455926_732b.jpg",
+        desc: "Analyze malware behavior and reverse engineering.",
+        details: "Reverse-engineer malicious software, study sandboxing tools, and use debuggers like OllyDbg to understand advanced malware."
+      }
+    ];
+
+    const navItems = document.getElementById("navItems");
+    const slideMenu = document.getElementById("slideMenu");
+    const hamburger = document.getElementById("hamburger");
+    const closeBtn = document.getElementById("closeBtn");
+    const searchInput = document.getElementById("searchInput");
+    const searchResults = document.getElementById("searchResults");
+    const slide = document.getElementById("courseSlide");
+    const slideTitle = document.getElementById("slideTitle");
+    const slideDetails = document.getElementById("slideDetails");
+
+    // Populate desktop nav items
+    navData.forEach(item => {
+      if (!item.mobileOnly) {
+        const navItem = document.createElement("a");
+        navItem.href = item.link;
+        navItem.textContent = item.label;
+
+        if (item.label === "Cart") {
+          navItem.className = "cart";
+          navItem.innerHTML = `
+            <i class="${item.icon}"></i>
+            <span class="badge">${item.badge}</span>
+          `;
+        } else if (item.label === "Get on Google Play") {
+          navItem.className = "btn btn-google-play";
+          navItem.innerHTML = `
+            <img src="${item.icon}" alt="Google Play">
+            ${item.label}
+          `;
+        } else {
+          navItem.className = "";
+        }
+
+        navItems.appendChild(navItem);
+      }
+    });
+
+    // Add Login and Sign up buttons for desktop
+    const loginBtn = document.createElement("a");
+    loginBtn.href = "#login";
+    loginBtn.textContent = "Login";
+    loginBtn.className = "btn btn-login";
+    navItems.appendChild(loginBtn);
+
+    const signupBtn = document.createElement("a");
+    signupBtn.href = "#signup";
+    signupBtn.textContent = "Sign up";
+    signupBtn.className = "btn btn-signup";
+    navItems.appendChild(signupBtn);
+
+    // Populate slide menu for mobile, excluding specified items
+    const itemsToExclude = ["Teach on Udemy", "Categories", "Cart", "Udemy Business", "Get on Google Play"];
+    navData.forEach(item => {
+      if (!itemsToExclude.includes(item.label)) {
+        const menuItem = document.createElement("a");
+        menuItem.href = item.link;
+        menuItem.innerHTML = `
+          <i class="${item.icon}"></i>
+          ${item.label}
+        `;
+        if (item.action === "toggleTheme") {
+          menuItem.addEventListener("click", (e) => {
+            e.preventDefault();
+            toggleTheme();
+          });
+        }
+        slideMenu.appendChild(menuItem);
+      }
+    });
+    // Toggle slide menu
+    hamburger.addEventListener("click", () => {
+      slideMenu.classList.add("active");
+    });
+
+    closeBtn.addEventListener("click", () => {
+      slideMenu.classList.remove("active");
+    });
+
+    // Function to highlight matched text
+    function highlightText(text, query) {
+      if (!query) return text;
+      const regex = new RegExp(`(${query})`, 'gi');
+      return text.replace(regex, '<span class="highlight">$1</span>');
+    }
+
+    // Search functionality
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.toLowerCase().trim();
+      searchResults.innerHTML = "";
+
+      if (query === "") {
+        searchResults.classList.remove("active");
+        return;
+      }
+
+      const filteredCourses = cyberCourses.filter(course => 
+        course.title.toLowerCase().includes(query) || 
+        course.desc.toLowerCase().includes(query)
+      );
+
+      if (filteredCourses.length === 0) {
+        searchResults.innerHTML = `<div class="search-result-card">No courses found.</div>`;
+        searchResults.classList.add("active");
+        return;
+      }
+
+      filteredCourses.forEach((course, index) => {
+        const highlightedTitle = highlightText(course.title, query);
+        const highlightedDesc = highlightText(course.desc, query);
+        const resultCard = document.createElement("div");
+        resultCard.className = "search-result-card";
+        resultCard.innerHTML = `
+          <img src="${course.image}" alt="${course.title}">
+          <div class="search-result-content">
+            <div class="search-result-title">${highlightedTitle}</div>
+            <div class="search-result-desc">${highlightedDesc}</div>
+            <div class="search-result-buttons">
+              <button class="btn btn-enroll">Enroll</button>
+              <button class="btn btn-details" onclick="showDetails(${index})">View Details</button>
+            </div>
+          </div>
+        `;
+        searchResults.appendChild(resultCard);
+      });
+
+      searchResults.classList.add("active");
+    });
+
+    // Hide search results when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".search-bar")) {
+        searchResults.classList.remove("active");
+      }
+    });
+
+    // Show course details in slide panel
+    function showDetails(index) {
+      const course = cyberCourses[index];
+      slideTitle.textContent = course.title;
+      slideDetails.textContent = course.details;
+      slide.classList.add("active");
+      searchResults.classList.remove("active"); // Hide search results
+    }
+
+    function closeSlide() {
+      slide.classList.remove("active");
+    }
+
+    // Theme toggle function
+    function toggleTheme() {
+      const body = document.body;
+      const navbar = document.querySelector(".navbar");
+      const slideMenu = document.querySelector(".slide-menu");
+      if (body.classList.contains("light")) {
+        body.classList.remove("light");
+        body.classList.add("dark");
+        navbar.classList.add("dark");
+        slideMenu.classList.add("dark");
+      } else {
+        body.classList.remove("dark");
+        body.classList.add("light");
+        navbar.classList.remove("dark");
+        slideMenu.classList.remove("dark");
+      }
+    }
+    const sliderData = [
+      {
+        image: "https://university.cappriciosec.com/college_images/25.jpg"
+      },
+      {
+        image: "https://university.cappriciosec.com/college_images/23.jpg"
+      },
+      {
+        image: "https://university.cappriciosec.com/college_images/20.png"
+      }
+    ];
+    // Slider Functionality
+    const slider = document.getElementById("slider");
+    let currentSlide = 0;
+
+    // Populate slider with JSON data (without title and description)
+    sliderData.forEach((slideData, index) => {
+      const slide = document.createElement("div");
+      slide.className = "slide";
+      slide.innerHTML = `
+        <img src="${slideData.image}" alt="Slide ${index + 1}">
+      `;
+      slider.appendChild(slide);
+    });
+
+    const slides = document.querySelectorAll(".slide");
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+      if (index >= totalSlides) {
+        currentSlide = 0;
+      } else if (index < 0) {
+        currentSlide = totalSlides - 1;
+      } else {
+        currentSlide = index;
+      }
+      slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentSlide - 1);
+    }
+
+    // Auto-slide every 5 seconds
+    setInterval(nextSlide, 5000);
+
+    // Show the first slide initially
+    showSlide(currentSlide);
+    const brands = [
+      { logo: "https://university.cappriciosec.com/college_images/1.png", alt: "DMI College" },
+      { logo: "https://university.cappriciosec.com/college_images/2.png", alt: "Jerusalem College" },
+      { logo: "https://university.cappriciosec.com/college_images/20.png", alt: "IIT Delhi" },
+      { logo: "https://university.cappriciosec.com/college_images/4.png", alt: "Rajalakshmi College" },
+      { logo: "https://university.cappriciosec.com/college_images/5.png", alt: "Prince College" },
+      { logo: "https://university.cappriciosec.com/college_images/6.png", alt: "Adhiyamaan College" },
+      { logo: "https://university.cappriciosec.com/college_images/7.png", alt: "Some Institute" },
+      { logo: "https://university.cappriciosec.com/college_images/8.png", alt: "Another College" },
+      { logo: "https://university.cappriciosec.com/college_images/9.png", alt: "DMI College" },
+      { logo: "https://university.cappriciosec.com/college_images/10.png", alt: "Jerusalem College" },
+      { logo: "https://university.cappriciosec.com/college_images/11.png", alt: "IIT Delhi" },
+      { logo: "https://university.cappriciosec.com/college_images/12.png", alt: "Rajalakshmi College" },
+      { logo: "https://university.cappriciosec.com/college_images/13.png", alt: "Prince College" },
+      { logo: "https://university.cappriciosec.com/college_images/14.png", alt: "Adhiyamaan College" },
+      { logo: "https://university.cappriciosec.com/college_images/15.png", alt: "Some Institute" },
+      { logo: "https://university.cappriciosec.com/college_images/16.png", alt: "Another College" },
+      { logo: "https://university.cappriciosec.com/college_images/17.png", alt: "DMI College" },
+      { logo: "https://university.cappriciosec.com/college_images/18.png", alt: "Jerusalem College" },
+      { logo: "https://university.cappriciosec.com/college_images/19.png", alt: "IIT Delhi" },
+      { logo: "https://university.cappriciosec.com/college_images/20.png", alt: "Rajalakshmi College" },
+      { logo: "https://university.cappriciosec.com/college_images/21.png", alt: "Prince College" },
+      { logo: "https://university.cappriciosec.com/college_images/22.png", alt: "Adhiyamaan College" },
+      { logo: "https://university.cappriciosec.com/college_images/3.png", alt: "IIT Delhi" },
+      { logo: "https://university.cappriciosec.com/college_images/4.png", alt: "Rajalakshmi College" },
+      { logo: "https://university.cappriciosec.com/college_images/5.png", alt: "Prince College" },
+      { logo: "https://university.cappriciosec.com/college_images/6.png", alt: "Adhiyamaan College" },
+    ];
+
+    const track = document.getElementById("brand-track");
+
+    // Duplicate logos for seamless infinite scroll
+    const loopedBrands = [...brands, ...brands];
+
+    loopedBrands.forEach(brand => {
+      const img = document.createElement("img");
+      img.src = brand.logo;
+      img.alt = brand.alt;
+      img.onerror = () => {
+        img.src = "https://via.placeholder.com/120x60?text=Not+Found";
+      };
+      track.appendChild(img);
+    });
+    /**/
+  //   const cyberCourses = [
+  //   {
+  //     title: "Ethical Hacking Essentials",
+  //     image: "https://img-c.udemycdn.com/course/240x135/1565838_e54e_12.jpg",
+  //     desc: "Learn white hat hacking and penetration testing basics.",
+  //     details: "This course will teach you how to perform ethical hacking and penetration testing in real-world scenarios, including password cracking, sniffing, and vulnerability assessment."
+  //   },
+  //   {
+  //     title: "Network Security Fundamentals",
+  //     image: "https://img-c.udemycdn.com/course/240x135/947098_02c6_3.jpg",
+  //     desc: "Understand secure network architectures and protocols.",
+  //     details: "Dive deep into network defense, firewalls, and secure communication protocols like SSL/TLS, with hands-on simulations."
+  //   },
+  //   {
+  //     title: "Web Application Security",
+  //     image: "https://img-c.udemycdn.com/course/240x135/2071088_45a1.jpg",
+  //     desc: "Secure web apps against XSS, CSRF, and SQLi attacks.",
+  //     details: "Learn how attackers exploit web vulnerabilities and how to implement security measures such as input validation, content security policies, and secure cookies."
+  //   },
+  //   {
+  //     title: "Cybersecurity for Beginners",
+  //     image: "https://img-c.udemycdn.com/course/240x135/1561458_7f3b.jpg",
+  //     desc: "Introductory guide to key cybersecurity concepts.",
+  //     details: "Get a broad understanding of cybersecurity concepts, types of threats, risk management, and career paths in this growing field."
+  //   },
+  //   {
+  //     title: "Advanced Malware Analysis",
+  //     image: "https://img-c.udemycdn.com/course/240x135/3455926_732b.jpg",
+  //     desc: "Analyze malware behavior and reverse engineering.",
+  //     details: "Reverse-engineer malicious software, study sandboxing tools, and use debuggers like OllyDbg to understand advanced malware."
+  //   }
+  // ];
+const container = document.getElementById("cyberCourseContainer");
+  // const slide = document.getElementById("courseSlide");
+  // const slideTitle = document.getElementById("slideTitle");
+  // const slideDetails = document.getElementById("slideDetails");
+
+  cyberCourses.forEach((course, index) => {
+    const card = document.createElement("div");
+    card.className = "course-card";
+    card.innerHTML = `
+      <img src="${course.image}" alt="${course.title}">
+      <div class="course-content">
+        <div class="course-title">${course.title}</div>
+        <div class="course-desc">${course.desc}</div>
+        <div class="course-buttons">
+          <button class="btn btn-enroll">Enroll</button>
+          <button class="btn btn-details" onclick="showDetails(${index})">View Details</button>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+  function showDetails(index) {
+    const course = cyberCourses[index];
+    slideTitle.textContent = course.title;
+    slideDetails.textContent = course.details;
+    slide.classList.add('active');
+  }
+
+  function closeSlide() {
+    slide.classList.remove('active');
+  }
+
+  slide.addEventListener('click', function (e) {
+    if (e.target === slide) {
+      closeSlide();
+    }
+  });
+ 
+  const coursesData = [
+    {
+      title: "🛡️ Ethical Hacking & Pen Testing",
+      image: "https://img-c.udemycdn.com/course/750x422/857010_8239_3.jpg"
+    },
+    {
+      title: "🕵️‍♂️ Cyber Crime Investigation",
+      image: "https://img-c.udemycdn.com/course/750x422/2345400_7f4f_3.jpg"
+    },
+    {
+      title: "🔧 Hardware & IoT Development",
+      image: "https://img-c.udemycdn.com/course/750x422/2887266_5953_5.jpg"
+    },
+    {
+      title: "📱 Mobile App Bug Bounty & Pentesting",
+      image: "https://img-c.udemycdn.com/course/750x422/1610974_28c7_6.jpg"
+    },
+    {
+      title: "☠️ Offensive Java & IoT Pentesting",
+      image: "https://img-c.udemycdn.com/course/750x422/4267914_8674.jpg"
+    },
+    {
+      title: "🌐 Web Apps Bug Bounty Pentesting",
+      image: "https://img-c.udemycdn.com/course/750x422/2038504_475a_5.jpg"
+    },
+    {
+      title: "📢 Offensive Social Media & Mobile Hacking",
+      image: "https://img-c.udemycdn.com/course/750x422/3040184_a8ab_4.jpg"
+    }
+  ];
+
+  const horizontalCourses = document.getElementById("horizontalCourses");
+
+  coursesData.forEach(course => {
+    const courseCard = document.createElement("div");
+    courseCard.className = "course-card";
+
+    courseCard.innerHTML = `
+      <img src="${course.image}" alt="${course.title}">
+      <h3>${course.title}</h3>
+      <button>Enroll Now</button>
+    `;
+
+    horizontalCourses.appendChild(courseCard);
+  });
+
+
+  fetch('data.json')
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById('cardContainer');
+
+    data.forEach((item, index) => {
+      const card = document.createElement('div');
+      card.className = 'card animate__animated animate__fadeInUp';
+      card.style.animationDelay = `${index * 0.2}s`;
+
+      card.innerHTML = `
+        <div class="icon">${item.icon}</div>
+        <div class="card-title">${item.title}</div>
+        <div class="card-description">${item.description}</div>
+        <span class="card-tag">${item.tag}</span>
+      `;
+
+      container.appendChild(card);
+    });
+  })
+  .catch(err => {
+    console.error('Failed to load JSON:', err);
+  });
+
+ const companyLogos = [
+  { name: "Google", url: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
+  { name: "Amazon", url: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
+  { name: "Microsoft", url: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" },
+  { name: "Netflix", url: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" },
+  { name: "Adobe", url: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Adobe_Corporate_Logo.png" },
+  { name: "Meta", url: "https://upload.wikimedia.org/wikipedia/commons/0/0c/Meta_Platforms_Inc._logo.svg" },
+  { name: "Spotify", url: "https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg" }
+];
+
+const locontainer = document.getElementById("logos-container");
+
+// Append logos twice for seamless looping
+function renderLogos() {
+  for (let i = 0; i < 2; i++) {
+    companyLogos.forEach(logo => {
+      const img = document.createElement("img");
+      img.src = logo.url;
+      img.alt = logo.name;
+      locontainer.appendChild(img);
+    });
+  }
+}
+
+renderLogos();
+const footerData = {
+  columns: [
+    {
+      title: "Company",
+      links: ["About Us", "Careers", "Blog", "Contact"]
+    },
+    {
+      title: "Courses",
+      links: ["Web Development", "AI & ML", "Cybersecurity", "Game Dev"]
+    },
+    {
+      title: "Support",
+      links: ["Help Center", "Terms of Service", "Privacy Policy"]
+    }
+  ],
+  mobileMenu: [
+    { label: "Home", icon: "fa-solid fa-house" },
+    { label: "Courses", icon: "fa-solid fa-book" },
+    { label: "Search", icon: "fa-solid fa-magnifying-glass" },
+    { label: "Profile", icon: "fa-solid fa-user" }
+  ],
+  socialLinks: [
+    { icon: "fa-brands fa-facebook", url: "https://facebook.com" },
+    { icon: "fa-brands fa-twitter", url: "https://twitter.com" },
+    { icon: "fa-brands fa-instagram", url: "https://instagram.com" },
+    { icon: "fa-brands fa-linkedin", url: "https://linkedin.com" }
+  ],
+  copyright:
+    "© 2025 EduPlatform. All rights reserved."
+};
+
+const footer = document.getElementById("footer");
+
+// Desktop footer
+function createDesktopFooter() {
+  const container = document.createElement("div");
+  container.className = "footer-container";
+
+  footerData.columns.forEach(col => {
+    const column = document.createElement("div");
+    column.className = "footer-column";
+    const title = document.createElement("h4");
+    title.className = "footer-title";
+    title.textContent = col.title;
+
+    column.appendChild(title);
+    col.links.forEach(link => {
+      const a = document.createElement("a");
+      a.href = "#";
+      a.className = "footer-link";
+      a.textContent = link;
+      column.appendChild(a);
+    });
+
+    container.appendChild(column);
+  });
+
+  // Social icons
+  const socialDiv = document.createElement("div");
+  socialDiv.className = "social-icons";
+  footerData.socialLinks.forEach(link => {
+    const a = document.createElement("a");
+    a.href = link.url;
+    a.target = "_blank";
+    a.innerHTML = `<i class="${link.icon}"></i>`;
+    socialDiv.appendChild(a);
+  });
+
+  container.appendChild(socialDiv);
+  footer.appendChild(container);
+}
+
+// Mobile dynamic footer
+function createMobileFooter() {
+  const mobileFooter = document.createElement("div");
+  mobileFooter.className = "dynamic-footer";
+
+  footerData.mobileMenu.forEach(item => {
+    const btn = document.createElement("button");
+    btn.innerHTML = `<i class="${item.icon}"></i><div>${item.label}</div>`;
+    mobileFooter.appendChild(btn);
+  });
+
+  // Social icons
+  const socialRow = document.createElement("div");
+  socialRow.className = "mobile-social-icons";
+  footerData.socialLinks.forEach(link => {
+    const a = document.createElement("a");
+    a.href = link.url;
+    a.target = "_blank";
+    a.innerHTML = `<i class="${link.icon}"></i>`;
+    socialRow.appendChild(a);
+  });
+
+  footer.appendChild(mobileFooter);
+  footer.appendChild(socialRow);
+}
+
+// Footer bottom
+function createFooterBottom() {
+  const bottom = document.createElement("div");
+  bottom.className = "footer-bottom";
+  bottom.textContent = footerData.copyright;
+  footer.appendChild(bottom);
+}
+
+// Load appropriate footer layout
+function renderFooter() {
+  const isMobile = window.innerWidth <= 768;
+  footer.innerHTML = "";
+  if (isMobile) {
+    createMobileFooter();
+  } else {
+    createDesktopFooter();
+  }
+  createFooterBottom();
+}
+
+renderFooter();
+window.addEventListener("resize", renderFooter);
+</script>
+</body>
+</html>

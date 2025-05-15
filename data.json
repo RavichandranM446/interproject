@@ -1,0 +1,26 @@
+[
+  {
+    "icon": "🛠️",
+    "title": "Hands-on Learning",
+    "description": "Work on real-time projects to build skills that matter.",
+    "tag": "Real-world"
+  },
+  {
+    "icon": "📜",
+    "title": "E-Certification",
+    "description": "Earn recognized certificates after each course.",
+    "tag": "Certified"
+  },
+  {
+    "icon": "💼",
+    "title": "Placement Support",
+    "description": "Get resume prep, mock interviews, and career guidance.",
+    "tag": "Job Ready"
+  },
+  {
+    "icon": "🎯",
+    "title": "Mini Challenges",
+    "description": "Sharpen skills with quizzes, tasks, and mini projects.",
+    "tag": "Practice"
+  }
+]
