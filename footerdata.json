@@ -1,0 +1,34 @@
+[
+  {
+    "title": "Company",
+    "links": [
+      { "text": "About Us", "url": "#" },
+      { "text": "Careers", "url": "#" },
+      { "text": "Press", "url": "#" }
+    ]
+  },
+  {
+    "title": "Products",
+    "links": [
+      { "text": "Pricing", "url": "#" },
+      { "text": "Features", "url": "#" },
+      { "text": "Integrations", "url": "#" }
+    ]
+  },
+  {
+    "title": "Support",
+    "links": [
+      { "text": "Help Center", "url": "#" },
+      { "text": "Contact Us", "url": "#" },
+      { "text": "Privacy Policy", "url": "#" }
+    ]
+  },
+  {
+    "title": "Follow Us",
+    "links": [
+      { "text": "Twitter", "url": "https://twitter.com" },
+      { "text": "Facebook", "url": "https://facebook.com" },
+      { "text": "LinkedIn", "url": "https://linkedin.com" }
+    ]
+  }
+]
