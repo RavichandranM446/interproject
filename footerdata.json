@@ -1,34 +1,19 @@
-[
-  {
-    "title": "Company",
-    "links": [
-      { "text": "About Us", "url": "#" },
-      { "text": "Careers", "url": "#" },
-      { "text": "Press", "url": "#" }
-    ]
+{
+  "about": "We are a leading LMS platform providing top-tier education and skill development online.",
+  "links": [
+    { "name": "Courses", "url": "#" },
+    { "name": "Mentors", "url": "#" },
+    { "name": "Pricing", "url": "#" },
+    { "name": "Blog", "url": "#" }
+  ],
+  "contact": {
+    "email": "support@edulms.com",
+    "phone": "+91 98765 43210",
+    "address": "123 Knowledge Park, Edu City, India"
   },
-  {
-    "title": "Products",
-    "links": [
-      { "text": "Pricing", "url": "#" },
-      { "text": "Features", "url": "#" },
-      { "text": "Integrations", "url": "#" }
-    ]
-  },
-  {
-    "title": "Support",
-    "links": [
-      { "text": "Help Center", "url": "#" },
-      { "text": "Contact Us", "url": "#" },
-      { "text": "Privacy Policy", "url": "#" }
-    ]
-  },
-  {
-    "title": "Follow Us",
-    "links": [
-      { "text": "Twitter", "url": "https://twitter.com" },
-      { "text": "Facebook", "url": "https://facebook.com" },
-      { "text": "LinkedIn", "url": "https://linkedin.com" }
-    ]
-  }
-]
+  "social": [
+    { "name": "Facebook", "url": "https://facebook.com", "icon": "🌐" },
+    { "name": "Twitter", "url": "https://twitter.com", "icon": "🐦" },
+    { "name": "LinkedIn", "url": "https://linkedin.com", "icon": "💼" }
+  ]
+}
