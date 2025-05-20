@@ -22,16 +22,12 @@
     body {
       font-family: 'Quicksand', sans-serif;
       transition: background-color 0.3s, color 0.3s;
+      background: #f8f9fa;
     }
 
 body.light {
-      background: #fff;
+      background: #f8f9fa;
       color: #333;
-    }
-
-    body.dark {
-      background: #1a1a1a;
-      color: #fff;
     }
 
    
@@ -109,18 +105,22 @@ body.light {
       width: 100%;
       overflow: hidden;
       position: relative;
-      background-color: #c5bbbb;
+     background-color:#e0e0e0;
+     height: 100px;
     }
 
-    .brand-track {
-      display: flex;
-      width: max-content;
-      animation: scroll 30s linear infinite;
-    }
+  .brand-track {
+  display: flex;
+  align-items: center; /* ✅ Vertically centers the logos */
+  width: max-content;
+  animation: scroll 30s linear infinite;
+}
+
 
     .brand-track img {
-      height: 60px;
-      margin: 0 40px;
+      width: 300px;
+        height: 100px;
+          margin: 0 15px;
       object-fit: contain;
       /* filter: grayscale(100%); */
       opacity: 0.8;
@@ -179,7 +179,7 @@ body.light {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  min-height: 220px;
+  min-height: 210px;
   justify-content: space-between;
 }
 
@@ -222,7 +222,7 @@ body.light {
 
 .course-description {
   font-size: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.15rem;
   color: #132028;
   overflow: hidden;
   min-height: 60px;
@@ -264,7 +264,7 @@ body.light {
 .course-rating {
   font-size: 0.9rem;
   color: #5f5d51;
-  margin-top: 0.25rem;
+  margin-top: 0.15rem;
 }
 .course-banner {
   width: 100%;
@@ -302,7 +302,7 @@ body.light {
 
   .course-card {
     width: 300px;
-     min-height: 520px;
+     min-height: 400px;
   }
 
   .mentor-photo {
@@ -643,55 +643,72 @@ body.light {
     margin-right: auto;
     padding: 0 20px; /* optional, for some inner spacing */
   }
-  footer {
-    background: #222;
-    color: #eee;
-    padding: 40px 20px;
-  }
-  .footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
   .footer-section {
-    flex: 1 1 200px;
-    margin: 10px;
-    min-width: 150px;
+  background: hsl(0, 10%, 88%);
+  color: #fff;
+  padding: 40px 20px 10px;
+  font-family: 'Quicksand', sans-serif;
+}
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-between;
+}
+.footer-card {
+  flex: 1 1 200px;
+}
+.footer-card h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  position: relative;
+}
+.footer-card-content {
+  transition: max-height 0.3s ease;
+  overflow: hidden;
+}
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid lab(0.61% 0.26 0.09);
+  padding-top: 10px;
+  margin-top: 20px;
+  font-size: 14px;
+  color: hsl(0, 8%, 5%);
+}
+.footer-content ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-content li {
+  margin-bottom: 8px;
+}
+.footer-content a {
+  color: hsl(0, 0%, 3%);
+  text-decoration: none;
+}
+.footer-content a:hover {
+  color: hwb(125 3% 6%);
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
   }
-  .footer-section h3 {
-    margin-bottom: 15px;
-    font-size: 18px;
-    border-bottom: 2px solid #555;
-    padding-bottom: 5px;
+
+  .footer-card-content {
+    max-height: 0;
   }
-  .footer-section ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+
+  .footer-card.active .footer-card-content {
+    max-height: 400px;
   }
-  .footer-section ul li {
-    margin-bottom: 10px;
-  }
-  .footer-section ul li a {
-    color: #bbb;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .footer-section ul li a:hover {
-    color: white;
-  }
-  @media (max-width: 600px) {
-    .footer-container {
-      flex-direction: column;
-      align-items: center;
-    }
-    .footer-section {
-      max-width: 100%;
-      margin: 15px 0;
-    }
-  }
+}
+
 </style>
 </head>
 <body class="light">
@@ -779,7 +796,16 @@ body.light {
 
 <br>
 </div> <!-- close main-container -->
- <div class="footer-container" id="footer"></div>
+ <footer id="footer" class="footer-section">
+  <div class="container">
+    <div class="footer-content" id="footer-content">
+      <!-- Dynamic content goes here -->
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 EduLMS. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -1075,45 +1101,46 @@ fetch('company.json')
     .catch(err => console.error('Failed to load companies:', err));
 
 
-const footerContainer = document.getElementById('footer');
 
-  async function loadFooter() {
-    try {
-      const response = await fetch('footerdata.json');
-      if (!response.ok) throw new Error('Failed to load JSON');
+fetch('footerdata.json')
+  .then(response => response.json())
+  .then(data => {
+    const footer = document.getElementById("footer-content");
 
-      const data = await response.json();
+    footer.innerHTML = `
+      <div class="footer-card">
+        <h3 onclick="toggleCard(this)">About</h3>
+        <div class="footer-card-content"><p>${data.about}</p></div>
+      </div>
+      <div class="footer-card">
+        <h3 onclick="toggleCard(this)">Quick Links</h3>
+        <div class="footer-card-content">
+          <ul>${data.links.map(link => `<li><a href="${link.url}">${link.name}</a></li>`).join('')}</ul>
+        </div>
+      </div>
+      <div class="footer-card">
+        <h3 onclick="toggleCard(this)">Contact</h3>
+        <div class="footer-card-content">
+          <p>Email: <a href="mailto:${data.contact.email}">${data.contact.email}</a></p>
+          <p>Phone: ${data.contact.phone}</p>
+          <p>${data.contact.address}</p>
+        </div>
+      </div>
+      <div class="footer-card">
+        <h3 onclick="toggleCard(this)">Follow Us</h3>
+        <div class="footer-card-content">
+          <ul>${data.social.map(s => `<li><a href="${s.url}" target="_blank">${s.icon} ${s.name}</a></li>`).join('')}</ul>
+        </div>
+      </div>
+    `;
+  });
 
-      data.forEach(section => {
-        const sectionDiv = document.createElement('div');
-        sectionDiv.classList.add('footer-section');
+function toggleCard(element) {
+  const card = element.parentElement;
+  card.classList.toggle('active');
+}
 
-        const heading = document.createElement('h3');
-        heading.textContent = section.title;
-        sectionDiv.appendChild(heading);
 
-        const ul = document.createElement('ul');
-        section.links.forEach(link => {
-          const li = document.createElement('li');
-          const a = document.createElement('a');
-          a.href = link.url;
-          a.textContent = link.text;
-          a.target = "_blank";
-          li.appendChild(a);
-          ul.appendChild(li);
-        });
-
-        sectionDiv.appendChild(ul);
-        footerContainer.appendChild(sectionDiv);
-      });
-
-    } catch (error) {
-      console.error('Error loading footer:', error);
-      footerContainer.textContent = 'Failed to load footer content.';
-    }
-  }
-
-  loadFooter();
 </script>
 </body>
 </html>
